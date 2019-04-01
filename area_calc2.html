@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<script async>...</script>
+
+<h2>Area Calculator</h2>
+
+Select Unit
+<br><br>
+<div>
+  <button id="unit1" type="button" onclick="myFunction(this)" value="m" >Meters</button>
+  <button id="unit5" type="button" onclick="myFunction(this)" value="cm">Centimeters</button>
+  <button id="unit2" type="button" onclick="myFunction(this)" value="mm">Milimeters</button>
+  <button id="unit3" type="button" onclick="myFunction(this)" value="ft">Feet</button>
+  <button id="unit4" type="button" onclick="myFunction(this)" value="in">Inches</button>
+</div>
+<br>
+<div class="box" >
+  Width : <input type="number" id="a" >
+  Height: <input type="number" id="b" >
+</div>
+
+<br><br>
+Material
+<br>
+<select id="material">
+    <option value="440gsm">440gsm Banner</option>
+    <option value="vinyl">Self-Adhesive Vinyl</option>
+</select>
+<br><br>
+Finish
+<br>
+<select id="finish" onchange="calc.disabled = false;" >
+    <option value="hem_lets" >Hem & Eye-Lets</option>
+    <option value="hem_only" >Hems Only</option>
+    <option value="lets_only" >Lets Only</option>
+    <option value="lam" >Trimmed with Lamination Matt</option>
+    <option value="size">Trimmed to size</option>
+</select>
+<br><br>
+<button id="calc" onclick="finalCalc()">Calculate Price!</button>
+<p id="result"></p>
+<p id="price"></p>
+
+
+<script>
+var unit;
+var area;
+var per;
+var price;
+var x;
+var y;
+var cost;;
+
+function myFunction(button) {
+    unit = button.value;
+    };
+
+function finalCalc() {
+  var mat = document.getElementById("material").value;
+  var fin = document.getElementById("finish").value;
+  x = document.getElementById("a").value;
+  y = document.getElementById("b").value;
+  console.log(unit);
+  if (unit == "m") {
+    area = (x*y).toFixed(2);
+    price = ((x*y).toFixed(2) * 30);
+    per = (parseInt(x) + parseInt(y)) * 2 ;
+    checkMat();
+  }
+  if (unit == "cm") {
+    area = (((x*0.01) * (y*0.01))).toFixed(2) ;
+    price = (((x*0.01) * (y*0.01))).toFixed(2) * 30;
+    per = (parseInt(x*0.01) + parseInt(y*0.01)) * 2 ;
+    checkMat();
+  }
+  if (unit == "mm") {
+    area = (((x*0.001) * (y*0.01))).toFixed(2) ;
+    price = (((x*0.001) * (y*0.01))).toFixed(2) * 30;
+    per = (parseInt(x*0.001) + parseInt(y*0.001)) * 2 ;
+    checkMat();
+  }
+  if (unit == "ft") {
+    area = (((x*0.3048) * (y*0.3048))).toFixed(2) ;
+    price = (((x*0.3048) * (y*0.3048))).toFixed(2) * 30;
+    per = (parseInt(x*0.3048) + parseInt(y*0.3048)) * 2 ;
+    checkMat();
+  }
+  if (unit == "in") {
+    area = (((x*0.0254) * (y*0.0254))).toFixed(2) ;
+    price = (((x*0.0254) * (y*0.0254))).toFixed(2) * 30;
+    per = (parseInt(x*0.0254) + parseInt(y*0.0254)) * 2 ;
+    checkMat();
+  }
+};
+function checkMat() {
+  var mat = document.getElementById("material").value;
+  var fin = document.getElementById("finish").value;
+  if (mat == "440gsm") {
+    cost = price + (Math.ceil(area) * 15)
+    checkFin();
+  }
+  if (mat == "vinyl") {
+    cost = price + (Math.ceil(area) * 20)
+    checkFin();
+  }
+};
+
+function checkFin() {
+  var mat = document.getElementById("material").value;
+  var fin = document.getElementById("finish").value;
+  if (fin == "hem_lets") {
+    banner = per * 2
+    chau();
+    }
+  if (fin == "hem_only" || fin =="lets_only") {
+    banner1 = per
+    chau1();
+    }
+  if (fin == "lam") {
+    banner2 = per * 10
+    chau2();
+      }
+  if (fin == "size") {
+    chau3();
+          }
+
+  };
+
+  function chau() {
+  document.getElementById("result").innerHTML = 'Area is: ' + area + ' Meters';
+  document.getElementById("price").innerHTML = 'Banner £' + cost + ' Finishing £' + banner + ' Total £' + (cost + banner) + ' + VAT';
+  };
+  function chau1() {
+  document.getElementById("result").innerHTML = 'Area is: ' + area + ' Meters';
+  document.getElementById("price").innerHTML = 'Banner £' + cost + ' Finishing £' + banner1 + ' Total £' + (cost + banner1) + ' + VAT';
+  };
+  function chau2() {
+  document.getElementById("result").innerHTML = 'Area is: ' + area + ' Meters';
+  document.getElementById("price").innerHTML = 'Banner £' + cost + ' Finishing £' + banner2 + ' Total £' + (cost + banner2) + ' + VAT';
+  };
+  function chau3() {
+  document.getElementById("result").innerHTML = 'Area is: ' + area + ' Meters';
+  document.getElementById("price").innerHTML = 'Banner £' + cost + ' Finishing £ 0' + ' Total £' + cost + ' + VAT';
+  };
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
